@@ -31,8 +31,8 @@ test.describe('Signup – Field Labels & UI Copy Tests', () => {
     await expect(signupPage.passwordHint).toBeVisible();
     const hintText = await signupPage.getPasswordHintText();
     // Verify the hint at least contains the key numbers (12 and 32)
-    expect(hintText).toMatch(/12/);
-    expect(hintText).toMatch(/32/);
+    expect.soft(hintText).toMatch(/12/);
+    expect.soft(hintText).toMatch(/32/);
   });
 
   // ── TC-L-05 ──────────────────────────────────────────────────────────────
