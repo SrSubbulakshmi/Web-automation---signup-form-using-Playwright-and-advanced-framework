@@ -1,0 +1,25 @@
+{
+  "name": "playwright-signup-automation",
+  "version": "1.0.0",
+  "description": "Playwright test automation framework for nesto signup page",
+  "scripts": {
+    "test": "playwright test",
+    "test:en": "LOCALE=en playwright test",
+    "test:fr": "LOCALE=fr playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:api": "playwright test signup.api",
+    "test:positive": "playwright test signup.positive",
+    "test:negative": "playwright test signup.negative",
+    "test:labels": "playwright test signup.labels",
+    "test:i18n": "playwright test signup.i18n",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@faker-js/faker": "^9.3.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "dotenv": "^16.4.0"
+  }
+}
