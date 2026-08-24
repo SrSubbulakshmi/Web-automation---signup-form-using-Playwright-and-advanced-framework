@@ -53,8 +53,8 @@ test.describe('Signup – Internationalisation (EN / FR)', () => {
 
     // ── TC-I-04 ────────────────────────────────────────────────────────────
     test('TC-I-04 @smoke French page heading is correct', async ({ signupPage, strings }) => {
-      await expect(signupPage.heading).toBeVisible();
-      await expect(signupPage.heading).toHaveText(strings.heading);
+      await expect.soft(signupPage.heading).toBeVisible();
+      await expect.soft(signupPage.heading).toHaveText(strings.heading);
     });
 
     // ── TC-I-05 ────────────────────────────────────────────────────────────
@@ -64,20 +64,20 @@ test.describe('Signup – Internationalisation (EN / FR)', () => {
 
     // ── TC-I-06 ────────────────────────────────────────────────────────────
     test('TC-I-06 French submit button has the correct French label', async ({ signupPage, strings }) => {
-      await expect(signupPage.submitButton).toBeVisible();
-      await expect(signupPage.submitButton).toHaveText(strings.submitButton);
+      await expect.soft(signupPage.submitButton).toBeVisible();
+      await expect.soft(signupPage.submitButton).toHaveText(strings.submitButton);
     });
 
     // ── TC-I-07 ────────────────────────────────────────────────────────────
     test('TC-I-07 form submission works in French locale', async ({ signupPage, testData }) => {
       const response = await signupPage.fillSubmitAndWaitForApiResponse(testData);
-      expect(response.ok()).toBeTruthy();
+      expect(response.ok()).toBe(true);
     });
 
     // ── TC-I-08 ────────────────────────────────────────────────────────────
     test('TC-I-08 French page document title is correct', async ({ signupPage, strings }) => {
       const title = await signupPage.getTitle();
-      expect(title).toBe(strings.pageTitle);
+      expect.soft(title).toBe(strings.pageTitle);
     });
 
     // ── TC-I-09 ────────────────────────────────────────────────────────────
@@ -91,9 +91,9 @@ test.describe('Signup – Internationalisation (EN / FR)', () => {
     test('TC-I-11 French password hint text is visible and contains key values', async ({ signupPage }) => {
       await expect(signupPage.passwordHint).toBeVisible();
       const hintText = await signupPage.getPasswordHintText();
-      expect(hintText).toMatch(/12/);
-      expect(hintText).toMatch(/32/);
-      expect(hintText).toMatch(/chiffre/i);
+      expect.soft(hintText).toMatch(/12/);
+      expect.soft(hintText).toMatch(/32/);
+      expect.soft(hintText).toMatch(/chiffre/i);
     });
   });
 
