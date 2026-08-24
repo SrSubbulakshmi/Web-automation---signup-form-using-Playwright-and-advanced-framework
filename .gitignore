@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Playwright artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# Optional artifacts (if enabled in config/scripts)
+coverage/
+
+# Environment files (keep example templates committed)
+.env
+.env.local
+.env.qa
+.env.dev
+.env.staging
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
