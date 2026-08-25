@@ -1,6 +1,7 @@
-import { faker } from '@faker-js/faker';
+import { faker, fakerFR_CA } from '@faker-js/faker';
 import { type SignupFormData, type Province, PROVINCES } from '../types';
 import {
+  APP_LOCALE,
   TEST_COUNTRY_CODE,
   TEST_EMAIL_DOMAIN,
   TEST_EMAIL_PREFIX,
@@ -11,6 +12,8 @@ import {
   TEST_PHONE,
   TEST_PROVINCE,
 } from '../config/env';
+
+const dataFaker = APP_LOCALE === 'fr' ? fakerFR_CA : faker;
 
 // All active Canadian area codes (NANP — Canada-only, no US overlap)
 const CANADIAN_AREA_CODES = [
@@ -24,35 +27,35 @@ const CANADIAN_AREA_CODES = [
 ];
 
 function generateCanadianPhone(): string {
-  const area  = faker.helpers.arrayElement(CANADIAN_AREA_CODES);
-  const local = faker.string.numeric({ length: 7 });
+  const area  = dataFaker.helpers.arrayElement(CANADIAN_AREA_CODES);
+  const local = dataFaker.string.numeric({ length: 7 });
   return `${area}${local}`;
 }
 
 function generateValidPassword(): string {
-  const upper  = faker.string.alpha({ length: 3, casing: 'upper' });
-  const lower  = faker.string.alpha({ length: 3, casing: 'lower' });
-  const digits = faker.string.numeric({ length: 3 });
-  const extra  = faker.string.alphanumeric({ length: 4 });
+  const upper  = dataFaker.string.alpha({ length: 3, casing: 'upper' });
+  const lower  = dataFaker.string.alpha({ length: 3, casing: 'lower' });
+  const digits = dataFaker.string.numeric({ length: 3 });
+  const extra  = dataFaker.string.alphanumeric({ length: 4 });
   const chars  = [...upper, ...lower, ...digits, ...extra];
-  return faker.helpers.shuffle(chars).join('');
+  return dataFaker.helpers.shuffle(chars).join('');
 }
 
 export function buildOverlongName(length = 80): string {
-  return faker.string.alpha({ length, casing: 'lower' });
+  return dataFaker.string.alpha({ length, casing: 'lower' });
 }
 
 export function buildValidFormData(overrides: Partial<SignupFormData> = {}): SignupFormData {
   // casing: 'lower' — nesto's email validator rejects uppercase in the local part
-  const uniqueSuffix = `${faker.string.alphanumeric({ length: 6, casing: 'lower' })}${Date.now()}`;
+  const uniqueSuffix = `${dataFaker.string.alphanumeric({ length: 6, casing: 'lower' })}${Date.now()}`;
   const password     = TEST_PASSWORD ?? generateValidPassword();
 
   return {
-    firstName:      TEST_FIRST_NAME ?? faker.person.firstName(),
-    lastName:       TEST_LAST_NAME ?? faker.person.lastName(),
+    firstName:      TEST_FIRST_NAME ?? dataFaker.person.firstName(),
+    lastName:       TEST_LAST_NAME ?? dataFaker.person.lastName(),
     phoneCountry:   TEST_COUNTRY_CODE,
     phone:          TEST_PHONE ?? generateCanadianPhone(),
-    province:       (TEST_PROVINCE ?? faker.helpers.arrayElement(PROVINCES).code) as Province,
+    province:       (TEST_PROVINCE ?? dataFaker.helpers.arrayElement(PROVINCES).code) as Province,
     email:          `${TEST_EMAIL_PREFIX}+${uniqueSuffix}@${TEST_EMAIL_DOMAIN}`,
     password,
     confirmPassword: password,
