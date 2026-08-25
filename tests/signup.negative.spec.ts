@@ -44,11 +44,14 @@ test.describe('Signup – Negative Tests', () => {
   });
 
   // ── TC-N-02b ─────────────────────────────────────────────────────────────
-  test('TC-N-02b first name longer than allowed shows "Too many characters" only after submit', async ({
+  test('TC-N-02b first name longer than allowed shows localized too-many-characters error only after submit', async ({
     signupPage,
+    strings,
   }) => {
     const data = buildValidFormData({ firstName: overlongName });
-    const tooManyCharactersError = signupPage.fieldErrors.filter({ hasText: 'Too many characters' }).first();
+    const tooManyCharactersError = signupPage.fieldErrors
+      .filter({ hasText: strings.validationErrors.tooManyCharacters })
+      .first();
 
     await test.step('Fill form with an overlong first name', async () => {
       await signupPage.fillForm(data);
@@ -80,11 +83,14 @@ test.describe('Signup – Negative Tests', () => {
   });
 
   // ── TC-N-03b ─────────────────────────────────────────────────────────────
-  test('TC-N-03b last name longer than allowed shows "Too many characters" only after submit', async ({
+  test('TC-N-03b last name longer than allowed shows localized too-many-characters error only after submit', async ({
     signupPage,
+    strings,
   }) => {
     const data = buildValidFormData({ lastName: overlongName });
-    const tooManyCharactersError = signupPage.fieldErrors.filter({ hasText: 'Too many characters' }).first();
+    const tooManyCharactersError = signupPage.fieldErrors
+      .filter({ hasText: strings.validationErrors.tooManyCharacters })
+      .first();
 
     await test.step('Fill form with an overlong last name', async () => {
       await signupPage.fillForm(data);
