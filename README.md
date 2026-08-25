@@ -188,7 +188,6 @@ Generated artifacts:
 
 ### Normal engineering practice
 - Usually, we do **not** commit generated report artifacts to source control.
-- However, I just committed to share my results and reports with stakeholders (such as those who want to view the report without running the test suite).
 
 ### For task/demo submission
 - For this assignment, reports are included as **test evidence**.
@@ -257,6 +256,21 @@ Suggested evidence to submit:
 - Phone assertions normalize digits to support masked input values.
 - Signup navigation waits for deterministic readiness signals instead of blind sleeps.
 - Known defects are captured through expected-fail tests rather than hidden/ignored.
+
+### Assertion strategy (hard vs soft)
+
+- Use **hard assertions** (`expect(...)`) for critical flow gates where the test should stop immediately on failure:
+  - page/state preconditions (for example, still on signup page),
+  - submit/result behavior,
+  - API success/failure checks.
+- Use **soft assertions** (`expect.soft(...)`) for grouped UI/copy validations where collecting multiple mismatches in one run is useful:
+  - placeholders,
+  - labels,
+  - localized copy text.
+- Project convention:
+  - `tests/signup.positive.spec.ts`, `tests/signup.negative.spec.ts`, and `tests/signup.api.spec.ts` are mostly hard assertions.
+  - `tests/signup.labels.spec.ts` and selected copy checks in `tests/signup.i18n.spec.ts` use soft assertions where batch feedback is more valuable than fail-fast.
+- Soft assertions should improve diagnostics, not hide blockers. Keep at least one hard assertion for each test's core behavior.
 
 ---
 
