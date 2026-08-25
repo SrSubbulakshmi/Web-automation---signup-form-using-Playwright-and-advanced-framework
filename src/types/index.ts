@@ -49,6 +49,9 @@ export interface LocaleStrings {
     password: string;
     confirmPassword: string;
   };
+  validationErrors: {
+    tooManyCharacters: string;
+  };
   passwordHint: string;
   submitButton: string;
   loginPrompt: string;
