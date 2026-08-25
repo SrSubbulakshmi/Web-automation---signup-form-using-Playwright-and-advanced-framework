@@ -38,6 +38,10 @@ function generateValidPassword(): string {
   return faker.helpers.shuffle(chars).join('');
 }
 
+export function buildOverlongName(length = 80): string {
+  return faker.string.alpha({ length, casing: 'lower' });
+}
+
 export function buildValidFormData(overrides: Partial<SignupFormData> = {}): SignupFormData {
   // casing: 'lower' — nesto's email validator rejects uppercase in the local part
   const uniqueSuffix = `${faker.string.alphanumeric({ length: 6, casing: 'lower' })}${Date.now()}`;
