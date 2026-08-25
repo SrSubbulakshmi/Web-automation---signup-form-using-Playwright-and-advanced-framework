@@ -1,8 +1,10 @@
 import { test, expect } from '../src/fixtures/signup.fixture';
-import { buildValidFormData, existingEmail } from '../src/data/testData';
+import { buildOverlongName, buildValidFormData, existingEmail } from '../src/data/testData';
 import { Passwords } from '../src/utils/passwordHelper';
 
 test.describe('Signup – Negative Tests', () => {
+  const overlongName = buildOverlongName();
+
   test.beforeEach(async ({ signupPage }) => {
     await signupPage.goto();
   });
@@ -41,6 +43,31 @@ test.describe('Signup – Negative Tests', () => {
     });
   });
 
+  // ── TC-N-02b ─────────────────────────────────────────────────────────────
+  test('TC-N-02b first name longer than allowed shows "Too many characters" only after submit', async ({
+    signupPage,
+  }) => {
+    const data = buildValidFormData({ firstName: overlongName });
+    const tooManyCharactersError = signupPage.fieldErrors.filter({ hasText: 'Too many characters' }).first();
+
+    await test.step('Fill form with an overlong first name', async () => {
+      await signupPage.fillForm(data);
+    });
+
+    await test.step('Validation is not shown before submit', async () => {
+      await expect(tooManyCharactersError).not.toBeVisible();
+    });
+
+    await test.step('Submit form', async () => {
+      await signupPage.submit();
+    });
+
+    await test.step('Too many characters error appears and page stays on signup', async () => {
+      await assertStaysOnSignup(signupPage);
+      await expect(tooManyCharactersError).toBeVisible({ timeout: 5_000 });
+    });
+  });
+
   // ── TC-N-03 ──────────────────────────────────────────────────────────────
   test('TC-N-03 empty last name shows validation error', async ({ signupPage }) => {
     const data = buildValidFormData({ lastName: '' });
@@ -50,6 +77,31 @@ test.describe('Signup – Negative Tests', () => {
 
     await assertStaysOnSignup(signupPage);
     await expect(signupPage.fieldErrors.first()).toBeVisible({ timeout: 5_000 });
+  });
+
+  // ── TC-N-03b ─────────────────────────────────────────────────────────────
+  test('TC-N-03b last name longer than allowed shows "Too many characters" only after submit', async ({
+    signupPage,
+  }) => {
+    const data = buildValidFormData({ lastName: overlongName });
+    const tooManyCharactersError = signupPage.fieldErrors.filter({ hasText: 'Too many characters' }).first();
+
+    await test.step('Fill form with an overlong last name', async () => {
+      await signupPage.fillForm(data);
+    });
+
+    await test.step('Validation is not shown before submit', async () => {
+      await expect(tooManyCharactersError).not.toBeVisible();
+    });
+
+    await test.step('Submit form', async () => {
+      await signupPage.submit();
+    });
+
+    await test.step('Too many characters error appears and page stays on signup', async () => {
+      await assertStaysOnSignup(signupPage);
+      await expect(tooManyCharactersError).toBeVisible({ timeout: 5_000 });
+    });
   });
 
   // ── TC-N-04 ──────────────────────────────────────────────────────────────
