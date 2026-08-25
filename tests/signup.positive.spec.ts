@@ -114,4 +114,17 @@ test.describe('Signup – Positive Tests', () => {
 
     await submitAndExpectSuccess(signupPage, data);
   });
+
+  // ── TC-P-09 ──────────────────────────────────────────────────────────────
+  test('TC-P-09 signup succeeds with password containing special characters', async ({
+    signupPage,
+    testData,
+  }) => {
+    const data = withOverrides(testData, {
+      password: Passwords.withSpecialCharacters,
+      confirmPassword: Passwords.withSpecialCharacters,
+    });
+
+    await submitAndExpectSuccess(signupPage, data);
+  });
 });
