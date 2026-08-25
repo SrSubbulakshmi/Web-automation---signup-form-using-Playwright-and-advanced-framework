@@ -22,6 +22,9 @@ export const en: LocaleStrings = {
     password: 'Password',
     confirmPassword: 'Confirm password',
   },
+  validationErrors: {
+    tooManyCharacters: 'Too many characters',
+  },
   passwordHint:
     'Password must be between 12 and 32 characters and contain one uppercase letter, one lowercase letter and one number.',
   submitButton: 'Create your account',
