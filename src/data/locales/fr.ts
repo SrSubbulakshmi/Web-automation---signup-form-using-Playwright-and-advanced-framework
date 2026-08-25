@@ -22,6 +22,9 @@ export const fr: LocaleStrings = {
     password: 'Mot de passe',
     confirmPassword: 'Confirmation du mot de passe',
   },
+  validationErrors: {
+    tooManyCharacters: 'Trop de caractères',
+  },
   passwordHint:
     'Le mot de passe doit contenir au entre 12 et 32 caractères et contenir au moins une lettre majuscule, une lettre minuscule et un chiffre.',
   submitButton: 'Créez votre compte',
