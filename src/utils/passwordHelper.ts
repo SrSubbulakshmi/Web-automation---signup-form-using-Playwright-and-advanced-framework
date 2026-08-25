@@ -3,6 +3,9 @@ import { TEST_PASSWORD } from '../config/env';
 export const Passwords = {
   valid: TEST_PASSWORD ?? 'TestPass123!@#',
 
+  withSpecialCharacters: 'TestPass12!@#',
+  // valid length and complexity; explicitly includes special characters
+
   minLength: 'TestPass12Ab',
   // exactly 12 chars: T-e-s-t-P-a-s-s-1-2-A-b
   // has uppercase (T, P, A), lowercase (e, s, t, a, s, s, b), number (1, 2)
