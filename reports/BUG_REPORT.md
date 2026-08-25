@@ -2,12 +2,12 @@
 
 **Page under test:** https://app.qa.nesto.ca/signup  
 **Reported by:** QA Automation  
-**Last verification date:** 2026-08-22  
+**Last verification date:** 2026-08-24  
 **Environment:** QA (`app.qa.nesto.ca`)
 
 ---
 
-## Verification Evidence (2026-08-22)
+## Verification Evidence (2026-08-23)
 
 - `npx playwright test tests/signup.labels.spec.ts --project=chromium`
   - `TC-L-17 [BUG-01]` This is a bug as the province select flips from the placeholder to `BC` after the page finishes geolocation-driven initialization without any user interaction. Until the page preserves the empty placeholder state we marked test.fail()
